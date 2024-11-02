@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Redirect all requests to /callback with query parameters to callback.php
+RewriteCond %{REQUEST_URI} ^/callback$
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^callback$ /callback.php [L,QSA]
+
+# Redirect all 404 errors to custom 404 PHP file
+ErrorDocument 404 /404.php

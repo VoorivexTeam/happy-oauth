@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Redirect all requests to /oauth with query parameters to index.php
+RewriteCond %{REQUEST_URI} ^/oauth$
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^oauth$ /oauth.php [L,QSA]
+
+RewriteCond %{REQUEST_URI} ^/login$
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^login$ /login.php [L,QSA]
+
+RewriteCond %{REQUEST_URI} ^/logout$
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^logout$ /logout.php [L,QSA]

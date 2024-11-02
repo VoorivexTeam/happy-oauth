@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  site:
+    build: .
+    container_name: site
+    volumes:
+      - ./site:/var/www/html
+    environment:
+      SITE: "http://lab-site.com:9000"
+      PROVIDER: "http://lab-provider.com:9001"
+      SANDBOX: "http://lab-sandbox.com:9002"
+    ports:
+      - "9000:80"
+
+  provider:
+    build: .
+    container_name: provider
+    volumes:
+      - ./provider:/var/www/html
+    environment:
+      SITE: "http://lab-site.com:9000"
+      PROVIDER: "http://lab-provider.com:9001"
+      SANDBOX: "http://lab-sandbox.com:9002"
+    ports:
+      - "9001:80"
+
+  sandbox:
+    build: .
+    container_name: sandbox
+    volumes:
+      - ./sandbox:/var/www/html
+    environment:
+      SITE: "http://lab-site.com:9000"
+      PROVIDER: "http://lab-provider.com:9001"
+      SANDBOX: "http://lab-sandbox.com:9002"
+    ports:
+      - "9002:80"
