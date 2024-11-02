@@ -74,8 +74,28 @@ $output = ob_get_clean();
             <?php echo htmlspecialchars($errorMessage); ?>
         <?php elseif ($successMessage): ?>
             <?= htmlspecialchars($successMessage); ?>
-            <script>window.location.href = './'</script>
         <?php endif; ?>
+        <script>
+            // Add an event listener for messages
+            window.addEventListener("message", function (event) {
+                // Check if the message key is 'embed'
+                if (event.data.key === 'embed') {
+                    // Create the message payload with the current URL
+                    const message = {
+                        detail: {
+                            url: window.location.href
+                        }
+                    };
+
+                    // Send the message back to the origin (or another target)
+                    event.source.postMessage(message, event.origin);
+                }
+            });
+
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 5000);
+        </script>
     </div>
 </body>
 
