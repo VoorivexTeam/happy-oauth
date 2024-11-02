@@ -1,10 +1,24 @@
 # OAuth Lab
-This challenge is build based on the Dirty Dance, covered URL-leaking first two gadgets:
-- Gadget 1: Weak or no origin-check postMessage-listeners that leaks URL
-- Gadget 2: example 1, stealing window.name from a sandbox iframe
-- Gadget 2: example 2, iframe with XSS + parent origin check
-
-
+This lab simulates common OAuth vulnerabilities, inspired by the Dirty Dance techniques. The setup addresses the following URL-leaking gadgets:
+- Gadget 1: Weak or missing origin-check in postMessage listeners that may leak URLs
+- Gadget 2: Exploits involving window.name:
+    - Example 1: Stealing window.name data from a sandboxed iframe
+    - Example 2: Using an iframe with XSS and a parent-origin check
 
 ## Setup and Installation
-The installation is easy
+
+To set up the OAuth lab, follow these instructions:
+
+Step 1: Build and Start the Docker Containers
+Run the following command in your terminal to build and start the Docker environment:
+
+```bash
+docker compose up --build
+```
+Add the following lines to your `hosts` file:
+```
+127.0.0.1 lab-site.com
+127.0.0.1 lab-provider.com
+127.0.0.1 lab-sandbox.com
+```
+Once the setup is complete, you can access the lab environment at `http://lab-site.com:9000`
