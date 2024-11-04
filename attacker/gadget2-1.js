@@ -11,10 +11,4 @@ window.addEventListener('load', function () {
             clearInterval(x);
         }
     }, 500);
-
-    window.addEventListener('message', function (e) {
-        if (e.data) {
-            document.getElementById('leak').innerText = 'We stole the token: ' + e.data;
-        }
-    });
 })

